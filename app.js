@@ -8,6 +8,7 @@ import rateLimit from 'express-rate-limit';
 import ApiError from './utils/ApiError.js';
 import { successHandler, errorHandlerr } from './config/morgan.js';
 import { errorConverter, errorHandler } from './middlewares/error.js';
+import db from './models/index.js';
 
 const app = express();
 
@@ -35,5 +36,7 @@ app.use(errorConverter);
 
 // handle error
 app.use(errorHandler);
+
+db.sequelize.sync();
 
 export default app;
