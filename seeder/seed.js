@@ -34,7 +34,7 @@ const dronesData = [
     serialNumber: 'DRONE005',
     model: 'Lightweight',
     weightLimit: 200,
-    batteryCapacity: 60,
+    batteryCapacity: 6,
     state: 'IDLE',
   },
   {
@@ -69,7 +69,7 @@ const dronesData = [
     serialNumber: 'DRONE010',
     model: 'Middleweight',
     weightLimit: 410,
-    batteryCapacity: 100,
+    batteryCapacity: 10,
     state: 'IDLE',
   },
 ];

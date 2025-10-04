@@ -6,6 +6,7 @@ import { status as httpStatus } from 'http-status';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import ApiError from './utils/ApiError.js';
+import routes from './routes/index.js';
 import { successHandler, errorHandlerr } from './config/morgan.js';
 import { errorConverter, errorHandler } from './middlewares/error.js';
 import db from './models/index.js';
@@ -25,6 +26,8 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(compression());
+
+app.use('/api', routes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
