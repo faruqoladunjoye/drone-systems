@@ -10,6 +10,7 @@ import routes from './routes/index.js';
 import { successHandler, errorHandlerr } from './config/morgan.js';
 import { errorConverter, errorHandler } from './middlewares/error.js';
 import db from './models/index.js';
+import './worker/battery.scheduler.js';
 
 const app = express();
 

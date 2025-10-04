@@ -34,17 +34,9 @@ const loadDrone = async (droneId, medicationCodes) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Drone battery too low for loading (<25%)');
   }
 
-  // Check if drone is in appropriate state for loading
-  if (!['IDLE', 'LOADING'].includes(drone.state)) {
-    throw new ApiError(
-      httpStatus.BAD_REQUEST,
-      `Drone is in ${drone.state} state and cannot be loaded. Must be IDLE or LOADING.`
-    );
-  }
-
   // fetch medications
   const medications = await db.medication.findAll({
-    where: { code: medicationCodes },
+    where: { code: { [db.Sequelize.Op.in]: medicationCodes } },
   });
 
   if (medications.length === 0) {
@@ -69,13 +61,7 @@ const loadDrone = async (droneId, medicationCodes) => {
 
     // Load medications
     for (const medication of medications) {
-      await db.droneMedication.create(
-        {
-          drone_id: droneId,
-          medication_id: medication.id,
-        },
-        { transaction }
-      );
+      await drone.addMedication(medication, { transaction });
     }
 
     // Update drone state to LOADED
@@ -83,7 +69,11 @@ const loadDrone = async (droneId, medicationCodes) => {
 
     await transaction.commit();
 
-    return { drone, medications };
+    const updatedDrone = await db.drone.findByPk(droneId, {
+      include: [{ model: db.medication, as: 'medications', through: { attributes: [] } }],
+    });
+
+    return { drone: updatedDrone, totalWeight };
   } catch (error) {
     await transaction.rollback();
     throw error;
@@ -95,14 +85,9 @@ const getLoadedMedications = async (droneId) => {
   const drone = await db.drone.findByPk(droneId, {
     include: [
       {
-        model: db.droneMedication,
-        as: 'medication',
-        include: [
-          {
-            model: db.medication,
-            as: 'medication',
-          },
-        ],
+        model: db.medication,
+        as: 'medications',
+        through: { attributes: [] },
       },
     ],
   });
@@ -142,15 +127,14 @@ const getAvailableDrones = async (page, limit) => {
 
 // Get drone battery level
 const getBatteryLevel = async (droneId) => {
-  const drone = await db.drone.findByPk(droneId, {
-    attributes: ['id', 'serialNumber', 'batteryCapacity'],
-  });
+  const drone = await db.drone.findByPk(droneId);
 
   if (!drone) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Drone not found');
   }
 
   return {
+    droneId: drone.id,
     serialNumber: drone.serialNumber,
     batteryCapacity: drone.batteryCapacity,
   };

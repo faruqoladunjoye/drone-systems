@@ -20,7 +20,7 @@ const errorConverter = (err, req, res, next) => {
       error.statusCode || (isSequelizeError && isClientError ? httpStatus.BAD_REQUEST : httpStatus.INTERNAL_SERVER_ERROR);
 
     const message = error.message || httpStatus[statusCode];
-    error = new ApiError(statusCode, message, 'Internal Error', false, err.stack);
+    error = new ApiError(statusCode, message, false, err.stack);
   }
   next(error);
 };
@@ -28,7 +28,7 @@ const errorConverter = (err, req, res, next) => {
 const errorHandler = (err, req, res, next) => {
   let { statusCode, message } = err;
 
-  if (env === 'production' && !err.isOperational) {
+  if (env.NODE_ENV === 'production' && !err.isOperational) {
     statusCode = httpStatus.INTERNAL_SERVER_ERROR;
     message = httpStatus[httpStatus.INTERNAL_SERVER_ERROR];
   }
@@ -38,10 +38,10 @@ const errorHandler = (err, req, res, next) => {
   const response = {
     code: statusCode,
     message,
-    ...(env === 'development' && { stack: err.stack }),
+    ...(env.NODE_ENV === 'development' && { stack: err.stack }),
   };
 
-  if (env === 'development') {
+  if (env.NODE_ENV === 'development') {
     logger.error(err);
   }
 

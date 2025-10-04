@@ -43,12 +43,14 @@ db.droneMedication = droneMedicationModel(sequelizeInstance, Sequelize.DataTypes
 // Many-to-Many: drone <-> medication through droneMedication
 db.drone.belongsToMany(db.medication, {
   through: db.droneMedication,
-  foreignKey: 'droneId',
+  foreignKey: 'drone_id',
+  as: 'medications',
 });
 
 db.medication.belongsToMany(db.drone, {
   through: db.droneMedication,
-  foreignKey: 'medicationId',
+  foreignKey: 'medication_id',
+  as: 'drones',
 });
 
 // One-to-Many: Drone -> BatteryLog
