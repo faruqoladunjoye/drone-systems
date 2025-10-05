@@ -4,7 +4,7 @@ import db from '../models/index.js';
 const dronesData = [
   {
     serialNumber: 'DRONE001',
-    model: 'Lightweight',
+    model: 'Cruiserweight',
     weightLimit: 400,
     batteryCapacity: 100,
     state: 'IDLE',
@@ -18,7 +18,7 @@ const dronesData = [
   },
   {
     serialNumber: 'DRONE003',
-    model: 'Cruiserweight',
+    model: 'Lightweight',
     weightLimit: 200,
     batteryCapacity: 80,
     state: 'IDLE',
@@ -39,35 +39,35 @@ const dronesData = [
   },
   {
     serialNumber: 'DRONE006',
-    model: 'Middleweight',
+    model: 'Cruiserweight',
     weightLimit: 350,
     batteryCapacity: 50,
     state: 'IDLE',
   },
   {
     serialNumber: 'DRONE007',
-    model: 'Cruiserweight',
+    model: 'Heavyweight',
     weightLimit: 450,
     batteryCapacity: 40,
     state: 'IDLE',
   },
   {
     serialNumber: 'DRONE008',
-    model: 'Heavyweight',
+    model: 'Cruiserweight',
     weightLimit: 320,
     batteryCapacity: 30,
     state: 'IDLE',
   },
   {
     serialNumber: 'DRONE009',
-    model: 'Lightweight',
+    model: 'Middleweight',
     weightLimit: 250,
     batteryCapacity: 25,
     state: 'IDLE',
   },
   {
     serialNumber: 'DRONE010',
-    model: 'Middleweight',
+    model: 'Heavyweight',
     weightLimit: 410,
     batteryCapacity: 10,
     state: 'IDLE',
