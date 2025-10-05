@@ -114,9 +114,6 @@ This will create:
 ```bash
 # Development mode with auto-reload
 npm run dev
-
-# Or start normally
-node index.js
 ```
 
 The API will be available at `http://localhost:3000/api`
