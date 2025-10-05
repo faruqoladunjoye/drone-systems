@@ -41,6 +41,6 @@ app.use(errorConverter);
 // handle error
 app.use(errorHandler);
 
-db.sequelize.sync();
+db.sequelize.sync({ alter: true });
 
 export default app;

@@ -31,7 +31,7 @@ const getLoadedMedicationsHandler = catchAsync(async (req, res) => {
 const getAvailableDronesHandler = catchAsync(async (req, res) => {
   const { page, limit } = req.query;
   const drones = await getAvailableDrones(page, limit);
-  res.status(httpStatus.OK).json(drones);
+  res.status(httpStatus.OK).json(response('Available drones fetched successfully', true, drones));
 });
 
 const getBatteryLevelHandler = catchAsync(async (req, res) => {

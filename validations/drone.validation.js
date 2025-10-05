@@ -3,7 +3,6 @@ import Joi from 'joi';
 const registerDrone = {
   body: Joi.object().keys({
     serialNumber: Joi.string().max(100).required(),
-    model: Joi.string().valid('Lightweight', 'Middleweight', 'Cruiserweight', 'Heavyweight').required(),
     weightLimit: Joi.number().integer().min(1).max(500).required(),
     batteryCapacity: Joi.number().integer().min(0).max(100).required(),
   }),

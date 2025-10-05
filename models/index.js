@@ -54,7 +54,7 @@ db.medication.belongsToMany(db.drone, {
 });
 
 // One-to-Many: Drone -> BatteryLog
-db.drone.hasMany(db.batteryLog, { foreignKey: 'droneId', onDelete: 'CASCADE' });
-db.batteryLog.belongsTo(db.drone, { foreignKey: 'droneId', onDelete: 'CASCADE' });
+db.drone.hasMany(db.batteryLog, { foreignKey: 'drone_id', onDelete: 'CASCADE' });
+db.batteryLog.belongsTo(db.drone, { foreignKey: 'drone_id', onDelete: 'CASCADE' });
 
 export default db;

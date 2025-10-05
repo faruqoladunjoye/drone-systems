@@ -2,14 +2,26 @@ import { status as httpStatus } from 'http-status';
 import ApiError from '../utils/ApiError.js';
 import db from '../models/index.js';
 
+// Helper function to determine drone model based on weight
+const getDroneModelByWeight = (weightLimit) => {
+  if (weightLimit <= 200) return 'Lightweight';
+  if (weightLimit <= 300) return 'Middleweight';
+  if (weightLimit <= 400) return 'Cruiserweight';
+  if (weightLimit <= 500) return 'Heavyweight';
+
+  throw new ApiError(httpStatus.BAD_REQUEST, 'Weight exceeds maximum allowed limit (500g)');
+};
+
 // Register new drone
 const registerDrone = async (data) => {
-  const { serialNumber, model, weightLimit, batteryCapacity } = data;
+  const { serialNumber, weightLimit, batteryCapacity } = data;
 
   const existingDrone = await db.drone.findOne({ where: { serialNumber } });
   if (existingDrone) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Drone with this serial number already exists');
   }
+
+  const model = getDroneModelByWeight(weightLimit);
 
   const drone = await db.drone.create({
     serialNumber,

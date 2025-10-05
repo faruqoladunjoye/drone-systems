@@ -12,12 +12,14 @@ hours = hours % 12 || 12;
 const formattedTime = `${hours}:${minutes} ${ampm}`;
 
 export const response = (message, status, data) => {
-  let circularObject = {
+  const statusString = status === true ? 'success' : 'error';
+
+  const responseObject = {
     message,
-    status,
+    status: statusString,
     responseTime: formattedTime,
     data,
   };
-  circularObject = JSON.stringify(circularObject);
-  return JSON.parse(circularObject);
+
+  return responseObject;
 };
