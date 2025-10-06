@@ -64,7 +64,7 @@ A REST API service for managing a fleet of drones that deliver medications. This
 
 ```bash
 git clone https://github.com/faruqoladunjoye/drone-systems.git
-cd "drone-system"
+cd drone-system
 npm install
 ```
 
