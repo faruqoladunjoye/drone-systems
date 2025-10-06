@@ -6,7 +6,6 @@ A REST API service for managing a fleet of drones that deliver medications. This
 
 - [Features](#features)
 - [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
 - [Tech Stack](#tech-stack)
 - [Setup & Installation](#setup--installation)
 - [API Endpoints](#api-endpoints)
@@ -45,12 +44,6 @@ A REST API service for managing a fleet of drones that deliver medications. This
 ├── worker/         # Background tasks
 └── seeder/         # Database seeding
 ```
-
-## Prerequisites
-
-- Node.js (v16 or higher)
-- PostgreSQL (v12 or higher)
-- npm
 
 ## Tech Stack
 
